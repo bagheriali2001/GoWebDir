@@ -1,0 +1,5 @@
+# air build folder
+tmp/
+
+# Mac OS
+.DS_Store
