@@ -170,7 +170,7 @@
                 {{range .Files}}
                 <tr>
                     <td>
-                        <a href="{{$.Directory.Value}}{{.Name}}{{if eq .Type "Directory"}}/{{end}}">
+                        <a href="{{.Name}}{{if eq .Type "Directory"}}/{{end}}">
                             {{.Name}}
                         </a>
                     </td>
