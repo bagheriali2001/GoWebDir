@@ -33,7 +33,7 @@ func (h *HandlerWrapper) Handler(w http.ResponseWriter, r *http.Request) {
 		http.ServeFile(w, r, filePath)
 	} else {
 		// list files in directory
-		files, err := fileHandler.ListDir(filePath)
+		files, err := fileHandler.ListDir(filePath, h.ShowHiddenFiles, h.ShowHiddenFolders)
 		if err != nil {
 			http.Error(w, "Unable to list directory", http.StatusInternalServerError)
 			return

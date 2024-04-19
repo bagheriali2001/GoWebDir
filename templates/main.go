@@ -38,7 +38,6 @@ var rawHTMLTemplate string
 func GetHTMLTemplate() *template.Template {
 	if htmlTemplate == nil {
 		htmlTemplate = template.Must(template.New("index.html").Parse(rawHTMLTemplate))
-		// htmlTemplate = template.Must(template.ParseFS(content, "templates/index.html"))
 	}
 	return htmlTemplate
 }

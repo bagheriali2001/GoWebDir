@@ -24,5 +24,7 @@ type PageData struct {
 }
 
 type HandlerWrapper struct {
-	RootPath string
+	RootPath          string
+	ShowHiddenFiles   bool
+	ShowHiddenFolders bool
 }

@@ -3,14 +3,15 @@ package helpers
 import (
 	"fmt"
 	"net"
+	"os"
 	"strings"
 )
 
 // TODO: colorize the output
 func DisplayAvailableAddresses(serverPort string) {
-	fmt.Println("Server is running on the following addresses:")
+	fmt.Fprintf(os.Stdout, "%sServer is running on the following addresses:%s\n", colorYellow, colorReset)
 	for _, address := range getNetwork() {
-		fmt.Printf("\thttp://%s:%s\n", address, serverPort)
+		fmt.Fprintf(os.Stdout, "\t%shttp://%s:%s%s\n", colorGreen, address, serverPort, colorReset)
 	}
 }
 

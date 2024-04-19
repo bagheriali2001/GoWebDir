@@ -13,6 +13,8 @@ import (
 	"github.com/bagheriali2001/GoWebDir/helpers"
 )
 
+// TODO: add json api version
+
 func main() {
 	app := &cli.App{
 		Name:      "go-web-dir",
@@ -35,26 +37,40 @@ func main() {
 					return nil
 				},
 			},
+			&cli.BoolFlag{
+				Name:        "show-hidden-files",
+				Value:       false,
+				Usage:       "Show hidden files in the directory",
+				DefaultText: "false",
+			},
+			&cli.BoolFlag{
+				Name:        "show-hidden-folders",
+				Value:       false,
+				Usage:       "Show hidden folders in the directory",
+				DefaultText: "false",
+			},
 		},
 
 		Action: func(c *cli.Context) error {
+			// TODO: Add a configuration summery log
+
 			port := c.Int("port")
 			folderPath := c.Args().First()
+
+			helpers.PrintStartupConfig(c.Int("port"), c.Args().First(), c.Bool("show-hidden-files"), c.Bool("show-hidden-folders"))
 
 			if folderPath == "" {
 				return fmt.Errorf("Please provide a path to the directory you want to serve")
 			}
 
-			fmt.Println("Running the server on port:", port)
-			fmt.Println("Serving files from:", folderPath)
-
 			helpers.DisplayAvailableAddresses(strconv.Itoa(port))
 
 			handlerWrapper := handlers.HandlerWrapper{
-				RootPath: folderPath,
+				RootPath:          folderPath,
+				ShowHiddenFiles:   c.Bool("show-hidden-files"),
+				ShowHiddenFolders: c.Bool("show-hidden-folders"),
 			}
 
-			// http.HandleFunc("/", handlers.Handler)
 			http.HandleFunc("/", handlerWrapper.Handler)
 
 			log.Fatal(http.ListenAndServe(":"+strconv.Itoa(port), nil))

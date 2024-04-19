@@ -7,15 +7,19 @@ import (
 	"github.com/bagheriali2001/GoWebDir/types"
 )
 
-func sortFiles(files []os.DirEntry) []os.DirEntry {
+func sortAndFilterFiles(files []os.DirEntry, showHiddenFiles, showHiddenFolders bool) []os.DirEntry {
 	dirList := []os.DirEntry{}
 	fileList := []os.DirEntry{}
 
 	for i := 0; i < len(files); i++ {
 		if files[i].IsDir() {
-			dirList = append(dirList, files[i])
+			if files[i].Name()[0] != '.' || showHiddenFolders {
+				dirList = append(dirList, files[i])
+			}
 		} else {
-			fileList = append(fileList, files[i])
+			if files[i].Name()[0] != '.' || showHiddenFiles {
+				fileList = append(fileList, files[i])
+			}
 		}
 	}
 
@@ -40,7 +44,7 @@ func sortFiles(files []os.DirEntry) []os.DirEntry {
 	return finalList
 }
 
-func ListDir(directory string) ([]types.File, error) {
+func ListDir(directory string, showHiddenFiles, showHiddenFolders bool) ([]types.File, error) {
 	files, err := os.ReadDir(directory)
 
 	if err != nil {
@@ -50,7 +54,7 @@ func ListDir(directory string) ([]types.File, error) {
 
 	var fileList []types.File
 
-	files = sortFiles(files)
+	files = sortAndFilterFiles(files, showHiddenFiles, showHiddenFolders)
 
 	for _, file := range files {
 		fileInfo, err := file.Info()
