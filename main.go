@@ -13,7 +13,8 @@ import (
 	"github.com/bagheriali2001/GoWebDir/helpers"
 )
 
-// TODO: add json api version
+// TODO: add hidden for windows
+// TODO: add http server configuration (encryption, etc.)
 
 func main() {
 	app := &cli.App{
@@ -52,8 +53,6 @@ func main() {
 		},
 
 		Action: func(c *cli.Context) error {
-			// TODO: Add a configuration summery log
-
 			port := c.Int("port")
 			folderPath := c.Args().First()
 

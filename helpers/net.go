@@ -7,7 +7,6 @@ import (
 	"strings"
 )
 
-// TODO: colorize the output
 func DisplayAvailableAddresses(serverPort string) {
 	fmt.Fprintf(os.Stdout, "%sServer is running on the following addresses:%s\n", colorYellow, colorReset)
 	for _, address := range getNetwork() {
