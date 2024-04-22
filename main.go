@@ -15,6 +15,7 @@ import (
 
 // TODO: add hidden for windows
 // TODO: add http server configuration (encryption, etc.)
+// source for ideas for improvements: https://www.npmjs.com/package/http-server
 
 func main() {
 	app := &cli.App{
